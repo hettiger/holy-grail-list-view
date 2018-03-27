@@ -43,6 +43,28 @@ export class HomeComponent implements OnInit {
 
         if (isIOS) {
             this.listView.ios.allowsSelection = false;
+
+            /**
+             * Enforce UITableViewDelegateImpl
+             *
+             * Make sure UITableViewDelegateImpl is being used because that's the
+             * tns-core-modules/ui/list-view delegate that is capable of correctly
+             * measuring row heights.
+             *
+             * @see https://github.com/NativeScript/NativeScript/blob/1931669f79d4177eb2d7c90fe7573a1f18751eb7/tns-core-modules/ui/list-view/list-view.ios.ts#L300
+             */
+            this.listView.rowHeight = -1;
+
+            /**
+             * Enforce precise row height's
+             *
+             * Set the estimatedRowHeight to 0 in order to make sure that rows that
+             * are currently off the screen will be measured precisely instead of just
+             * using the estimated row height until they get scrolled into view.
+             * This is very important in order to maintain the correct scroll position
+             * when loading more items.
+             */
+            this.listView.ios.estimatedRowHeight = 0;
         }
     }
 
