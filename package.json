@@ -1,0 +1,55 @@
+{
+    "description": "NativeScript Application",
+    "license": "SEE LICENSE IN <your-license-filename>",
+    "readme": "NativeScript Application",
+    "repository": "<fill-your-repository-here>",
+    "nativescript": {
+        "id": "org.nativescript.blankng",
+        "tns-android": {
+            "version": "3.4.1"
+        },
+        "tns-ios": {
+            "version": "3.4.1"
+        }
+    },
+    "dependencies": {
+        "@angular/animations": "~5.2.0",
+        "@angular/common": "~5.2.0",
+        "@angular/compiler": "~5.2.0",
+        "@angular/core": "~5.2.0",
+        "@angular/forms": "~5.2.0",
+        "@angular/http": "~5.2.0",
+        "@angular/platform-browser": "~5.2.0",
+        "@angular/platform-browser-dynamic": "5.2.0",
+        "@angular/router": "~5.2.0",
+        "kinvey-nativescript-sdk": "^3.10.0",
+        "nativescript-accelerometer": "^2.0.1",
+        "nativescript-angular": "~5.2.0",
+        "nativescript-camera": "^4.0.0",
+        "nativescript-fresco": "^3.0.6",
+        "nativescript-geolocation": "^4.2.3",
+        "nativescript-intl": "^3.0.0",
+        "nativescript-iqkeyboardmanager": "^1.2.0",
+        "nativescript-social-share": "^1.5.0",
+        "nativescript-theme-core": "~1.0.4",
+        "nativescript-ui-autocomplete": "^3.6.0",
+        "nativescript-ui-calendar": "^3.5.0",
+        "nativescript-ui-chart": "^3.5.0",
+        "nativescript-ui-dataform": "^3.5.0",
+        "nativescript-ui-gauge": "^3.5.0",
+        "nativescript-ui-listview": "^3.5.1",
+        "nativescript-ui-sidedrawer": "^3.5.1",
+        "reflect-metadata": "~0.1.12",
+        "rxjs": "~5.5.6",
+        "tns-core-modules": "~3.4.1",
+        "zone.js": "~0.8.20"
+    },
+    "devDependencies": {
+        "babel-traverse": "6.25.0",
+        "babel-types": "6.25.0",
+        "babylon": "6.17.4",
+        "lazy": "1.0.11",
+        "nativescript-dev-typescript": "~0.6.0",
+        "typescript": "~2.4.2"
+    }
+}

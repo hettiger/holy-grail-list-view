@@ -1,0 +1,5 @@
+/.idea/
+/platforms/
+/node_modules/
+/hooks/
+/app/**/*.js
