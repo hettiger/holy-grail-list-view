@@ -6,8 +6,6 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { isIOS, device } from "tns-core-modules/platform";
 import { Observable } from "rxjs/Observable";
 
-declare const UIApplication: any;
-
 @Component({
     selector: "Home",
     moduleId: module.id,
