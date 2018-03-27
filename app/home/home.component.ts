@@ -3,7 +3,7 @@ import { Item } from "../item/item";
 import { ItemService } from "../item/item.service";
 import { ListView } from "tns-core-modules/ui/list-view";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { isIOS, device } from "tns-core-modules/platform";
+import { isIOS, device, isAndroid } from "tns-core-modules/platform";
 import { Observable } from "rxjs/Observable";
 import { PullToRefresh } from "nativescript-pulltorefresh";
 
@@ -40,7 +40,20 @@ export class HomeComponent implements OnInit {
     onListViewLoaded(args): void {
         this.listView = args.object;
 
-        if (isIOS) {
+        if (isAndroid) {
+            /**
+             * Disable visual feedback on item tap events
+             */
+            this.listView.android.setSelector(new android.graphics.drawable.StateListDrawable());
+
+            /**
+             * Disable audio feedback on item tap events
+             */
+            this.listView.android.setSoundEffectsEnabled(false);
+        } else if (isIOS) {
+            /**
+             * Disable visual feedback on item tap events
+             */
             this.listView.ios.allowsSelection = false;
 
             /**
