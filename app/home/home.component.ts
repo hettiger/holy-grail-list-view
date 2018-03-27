@@ -5,6 +5,7 @@ import { ListView } from "tns-core-modules/ui/list-view";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { isIOS, device } from "tns-core-modules/platform";
 import { Observable } from "rxjs/Observable";
+import { PullToRefresh } from "nativescript-pulltorefresh";
 
 @Component({
     selector: "Home",
@@ -104,5 +105,30 @@ export class HomeComponent implements OnInit {
         this.clear().then(() => {
             this.reload();
         });
+    }
+
+    pullToRefresh(args): void {
+        const pullToRefresh: PullToRefresh = args.object;
+        const startTimestamp = Date.now();
+        this.isContextualIndicatorActive$.next(true);
+
+        if (this.listView) {
+            this.itemService
+                .fetchItems(true)
+                .delayWhen(() => {
+                    const loadingDuration = Date.now() - startTimestamp;
+                    return Observable.interval((loadingDuration <= 1000) ? (1000 - loadingDuration) : 0);
+                })
+                .finally(() => {
+                    pullToRefresh.refreshing = false;
+                    this.isContextualIndicatorActive$.next(false);
+                })
+                .subscribe(() => {
+                    this.listView.refresh();
+                });
+        } else {
+            pullToRefresh.refreshing = false;
+            this.isContextualIndicatorActive$.next(false);
+        }
     }
 }

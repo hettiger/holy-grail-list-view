@@ -8,23 +8,25 @@
 </ActionBar>
 
 <GridLayout class="page">
-	<ListView [items]="items" class="list-group" (loaded)="onListViewLoaded($event)" (loadMoreItems)="loadMoreItems($event)" separatorColor="rgba(0, 0, 0, 0)">
-		<ng-template let-item="item">
-			<GridLayout class="list-group-item" [borderBottomWidth]="item.type === 'item' ? '1' : '0'" borderBottomColor="#d3d3d3">
-				<GridLayout *ngIf="item.type === 'item'" rows="auto, auto" columns="auto, 16, *">
-					<Image rowSpan="2" src="{{ item.thumbnail }}" class="thumb img-circle" loadMode="async"></Image>
-					<Label row="0" col="2" text="{{ item.title }}" textWrap="true" class="list-group-item-heading"></Label>
-					<Label row="1" col="2" text="{{ item.randomText }}" textWrap="true" class="list-group-item-text"></Label>
+	<PullToRefresh (refresh)="pullToRefresh($event)">
+		<ListView [items]="items" class="list-group" (loaded)="onListViewLoaded($event)" (loadMoreItems)="loadMoreItems($event)" separatorColor="rgba(0, 0, 0, 0)">
+			<ng-template let-item="item">
+				<GridLayout class="list-group-item" [borderBottomWidth]="item.type === 'item' ? '1' : '0'" borderBottomColor="#d3d3d3">
+					<GridLayout *ngIf="item.type === 'item'" rows="auto, auto" columns="auto, 16, *">
+						<Image rowSpan="2" src="{{ item.thumbnail }}" class="thumb img-circle" loadMode="async"></Image>
+						<Label row="0" col="2" text="{{ item.title }}" textWrap="true" class="list-group-item-heading"></Label>
+						<Label row="1" col="2" text="{{ item.randomText }}" textWrap="true" class="list-group-item-text"></Label>
+					</GridLayout>
+					<StackLayout *ngIf="item.type === 'loading-indicator'" [paddingBottom]="paddingBottom">
+						<ActivityIndicator busy="true" width="50" height="50" class="activity-indicator"></ActivityIndicator>
+					</StackLayout>
+					<StackLayout *ngIf="item.type === 'end'" [paddingBottom]="paddingBottom">
+						<Label text="No more data..." class="list-group-item-text" horizontalAlignment="center"></Label>
+					</StackLayout>
 				</GridLayout>
-				<StackLayout *ngIf="item.type === 'loading-indicator'" [paddingBottom]="paddingBottom">
-					<ActivityIndicator busy="true" width="50" height="50" class="activity-indicator"></ActivityIndicator>
-				</StackLayout>
-				<StackLayout *ngIf="item.type === 'end'" [paddingBottom]="paddingBottom">
-					<Label text="No more data..." class="list-group-item-text" horizontalAlignment="center"></Label>
-				</StackLayout>
-			</GridLayout>
-		</ng-template>
-	</ListView>
+			</ng-template>
+		</ListView>
+	</PullToRefresh>
 	<ActivityIndicator [busy]="isBusy && !isContextualIndicatorActive" width="50" height="50" class="activity-indicator"></ActivityIndicator>
 	<Button *ngIf="!isBusy && !isContextualIndicatorActive && !items.length" text="Reload data..." (tap)="reload()"></Button>
 </GridLayout>
